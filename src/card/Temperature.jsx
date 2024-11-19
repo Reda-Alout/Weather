@@ -80,9 +80,7 @@ function Temperature() {
     };
 
     const getWeatherIconUrl = () => {
-        if (!weatherIcon || !weatherIcons[weatherIcon]) {
-            return "/static/images/cards/contemplative-reptile.jpg";
-        }
+
         return weatherIcons[weatherIcon];
     };
 
@@ -106,18 +104,7 @@ function Temperature() {
 
 
             <div className='search'>
-                {/* <TextField
-        className='searchInput'
-        label="Search City"
-        variant="outlined"
-        fullWidth
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        sx={{ marginBottom: 2 }}
-    />
-    <Button className='searchButton' variant="contained" color="primary" onClick={fetchCityWeather} sx={{ marginBottom: 2 }}>
-        Search
-    </Button> */}
+
                 <Paper
                     component="form"
                     sx={{
@@ -132,7 +119,7 @@ function Temperature() {
                         inputProps={{ 'aria-label': 'search google maps' }}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        onKeyDown={handleKeyDown} // Gestion de la touche Entrée
+                        onKeyDown={handleKeyDown} 
 
                     />
                     <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={fetchCityWeather}>
@@ -145,13 +132,18 @@ function Temperature() {
 
             <Card className="card" sx={{ maxWidth: 345 }}>
                 <CardActionArea>
-                    <CardMedia
+                    {map ?
+                    (<CardMedia
                         component="img"
                         height="140"
                         image={getWeatherIconUrl()}
                         alt="weather icon"
                         sx={{ height: '100%' }}
-                    />
+                    />) :
+(                        <Typography gutterBottom variant="h3" component="div">
+                            Please choose your city
+                        </Typography>)}
+
                     <CardContent>
 
                         <Typography gutterBottom variant="h5" component="div">
@@ -163,9 +155,7 @@ function Temperature() {
                                 <Typography variant="body1">
                                     Temperature: {city.temp}°C
                                 </Typography>
-                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                                    Feels Like: {city.feels_like}°C
-                                </Typography>
+
                                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                                     Local Time: {getLocalTime()}
                                 </Typography>
